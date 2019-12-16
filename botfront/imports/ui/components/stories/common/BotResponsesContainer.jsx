@@ -125,13 +125,14 @@ BotResponsesContainer.propTypes = {
     onDeleteAllResponses: PropTypes.func.isRequired,
     exceptions: PropTypes.array,
     isNew: PropTypes.bool.isRequired,
-    removeNewState: PropTypes.func.isRequired,
+    removeNewState: PropTypes.func,
     language: PropTypes.string.isRequired,
 };
 
 BotResponsesContainer.defaultProps = {
     deletable: true,
     exceptions: [{ type: null }],
+    removeNewState: () => {},
 };
 
 export default BotResponsesContainer;
