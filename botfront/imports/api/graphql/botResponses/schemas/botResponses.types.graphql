@@ -52,6 +52,7 @@ input BotResponseInput {
     _id: String
     projectId: String
     values: [BotResponseValueInput]
+    metadata: Any
 }
 
 input BotResponseValueInput {

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { any } from 'prop-types';
 import { languages } from '../../../lib/languages';
 
 const { ObjectId } = mongoose.Types;
@@ -29,7 +30,6 @@ const contentValidator = (content) => {
 }
 */
 
-
 const botResponses = new Schema({
     _id:
         {
@@ -56,6 +56,9 @@ const botResponses = new Schema({
         ],
         max: 5,
         min: 0,
+    },
+    metadata: {
+        type: Schema.Types.Mixed,
     },
 }, { versionKey: false });
 
