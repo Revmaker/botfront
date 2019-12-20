@@ -1,0 +1,17 @@
+resources:
+- common/configmaps.yaml
+- db/configmaps.yaml
+- db/stateful-set.yaml
+- db/service.yaml
+- frontend/configmaps.yaml
+- frontend/stateful-set.yaml
+- frontend/service.yaml
+- api/configmaps.yaml
+- api/deployment.yaml
+- api/service.yaml
+- duckling/configmaps.yaml
+- duckling/deployment.yaml
+- duckling/service.yaml
+- actions/configmaps.yaml
+- actions/stateful-set.yaml
+- actions/service.yaml

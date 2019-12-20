@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: botfront-env
+  labels:
+    app: botfront
+data:
+  MONGO_URL: mongodb://db.botfront.svc.cluster.local:27017/bf
+  ACTIONS_URL: http://actions.botfront.svc.cluster.local:5055/webhook
+  BF_URL: http://api.botfront.svc.cluster.local:8080
+  ROOT_URL: https://botfront.carlabs.com

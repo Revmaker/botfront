@@ -1,0 +1,76 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: actions
+  labels:
+    app: botfront
+    component: actions
+spec:
+  serviceName: actions
+  selector:
+    matchLabels:
+      app: botfront
+      component: actions
+  template:
+    metadata:
+      labels:
+        app: botfront
+        component: actions
+    spec:
+      containers:
+      - name: actions
+        image: rasa/rasa-sdk:1.3.2
+        imagePullPolicy: IfNotPresent
+        command:
+        - /app/entrypoint.sh
+        - start
+        - '--debug'
+        - '--actions'
+        - actions
+        envFrom:
+        - configMapRef:
+            name: botfront-common
+        - configMapRef:
+            name: botfront-actions
+        - configMapRef:
+            name: botfront-env
+        - secretRef:
+            name: botfront
+        env:
+        - name: PORT
+          value: "5055"
+        ports:
+        - containerPort: 5055
+          name: api
+        resources:
+          requests:
+            cpu: "20m"
+            memory: "55M"
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 5055
+        #   initialDelaySeconds: 90
+        #   timeoutSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 5055
+        #   initialDelaySeconds: 30
+        #   timeoutSeconds: 10
+        volumeMounts:
+        - mountPath: /app/actions
+          name: botfront-actions
+      restartPolicy: Always
+  volumeClaimTemplates:
+  - metadata:
+      name: botfront-actions
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      volumeMode: Filesystem
+      resources:
+        requests:
+          storage: 20Gi
+      storageClassName: gp2

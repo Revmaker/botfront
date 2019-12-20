@@ -1,0 +1,107 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: frontend
+  labels:
+    app: botfront
+    component: frontend
+spec:
+  serviceName: frontend
+  selector:
+    matchLabels:
+      app: botfront
+      component: frontend
+  template:
+    metadata:
+      labels:
+        app: botfront
+        component: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: botfront/botfront:v0.18.5
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: botfront-common
+        - configMapRef:
+            name: botfront-frontend
+        - configMapRef:
+            name: botfront-env
+        - secretRef:
+            name: botfront
+        env:
+        - name: PORT
+          value: "3000"
+        ports:
+        - containerPort: 3000
+          name: web
+        resources:
+          requests:
+            cpu: "20m"
+            memory: "55M"
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 3000
+        #   initialDelaySeconds: 90
+        #   timeoutSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 3000
+        #   initialDelaySeconds: 30
+        #   timeoutSeconds: 10
+        volumeMounts:
+        - mountPath: /models
+          name: botfront-models
+      - name: rasa
+        image: botfront/rasa-for-botfront:v1.3.9-bf.4
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: botfront-common
+        - configMapRef:
+            name: botfront-rasa
+        - configMapRef:
+            name: botfront-env
+        - secretRef:
+            name: botfront
+        env:
+        - name: PORT
+          value: "5005"
+        ports:
+        - containerPort: 5005
+          name: rasa
+        resources:
+          requests:
+            cpu: "20m"
+            memory: "55M"
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 5005
+        #   initialDelaySeconds: 90
+        #   timeoutSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 5005
+        #   initialDelaySeconds: 30
+        #   timeoutSeconds: 10
+        volumeMounts:
+        - mountPath: /app/models
+          name: botfront-models
+      restartPolicy: Always
+  volumeClaimTemplates:
+  - metadata:
+      name: botfront-models
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      volumeMode: Filesystem
+      resources:
+        requests:
+          storage: 20Gi
+      storageClassName: gp2

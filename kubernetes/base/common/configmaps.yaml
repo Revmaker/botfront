@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: botfront-common
+  labels:
+    app: botfront
+data:
+  BF_PROJECT_ID: bf
+  ORCHESTRATOR: kubernetes
+  SOCKET_PATH: /socket.io/
+  MONGO_INITDB_DATABASE: bf

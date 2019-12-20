@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: botfront-frontend
+  labels:
+    app: botfront
+    component: frontend
+data: {}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: botfront-rasa
+  labels:
+    app: botfront
+    component: rasa
+data: {}

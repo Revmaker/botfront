@@ -1,0 +1,16 @@
+namespace: botfront
+bases:
+- ../../../base
+resources:
+- namespace.yaml
+- configmaps.yaml
+- ingress.yaml
+patchesStrategicMerge: []
+generatorOptions:
+  labels:
+    app: botfront
+secretGenerator:
+- name: botfront
+  type: Opaque
+  commands:
+    API_KEY: "aws --region us-east-1 secretsmanager get-secret-value --secret-id kubernetes/botfront/prod/secrets --query SecretString --output text | jq -j '.api_key'"

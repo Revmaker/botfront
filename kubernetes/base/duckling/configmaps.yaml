@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: botfront-duckling
+  labels:
+    app: botfront
+    component: duckling
+data: {}

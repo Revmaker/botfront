@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: botfront-actions
+  labels:
+    app: botfront
+    component: actions
+data: {}

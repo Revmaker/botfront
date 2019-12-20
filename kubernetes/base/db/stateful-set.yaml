@@ -1,0 +1,70 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+  labels:
+    app: botfront
+    component: db
+spec:
+  serviceName: db
+  selector:
+    matchLabels:
+      app: botfront
+      component: db
+  template:
+    metadata:
+      labels:
+        app: botfront
+        component: db
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:latest
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: botfront-common
+        - configMapRef:
+            name: botfront-db
+        - configMapRef:
+            name: botfront-env
+        - secretRef:
+            name: botfront
+        env:
+        - name: PORT
+          value: "27017"
+        ports:
+        - containerPort: 27017
+          name: db
+        resources:
+          requests:
+            cpu: "20m"
+            memory: "55M"
+        # livenessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 27017
+        #   initialDelaySeconds: 90
+        #   timeoutSeconds: 10
+        # readinessProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 27017
+        #   initialDelaySeconds: 30
+        #   timeoutSeconds: 10
+        volumeMounts:
+        - mountPath: /data/db
+          name: botfront-data
+      restartPolicy: Always
+  volumeClaimTemplates:
+  - metadata:
+      name: botfront-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      volumeMode: Filesystem
+      resources:
+        requests:
+          storage: 20Gi
+      storageClassName: gp2
