@@ -7,6 +7,5 @@ metadata:
     app: botfront
 data:
   BF_PROJECT_ID: bf
-  ORCHESTRATOR: kubernetes
   SOCKET_PATH: /socket.io/
   MONGO_INITDB_DATABASE: bf
