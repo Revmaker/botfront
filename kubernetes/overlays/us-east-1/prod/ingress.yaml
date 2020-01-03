@@ -14,3 +14,9 @@ spec:
       - backend:
           serviceName: frontend
           servicePort: 8888
+  - host: botfront-import.carlabs.com
+    http:
+      paths:
+      - backend:
+          serviceName: botfront-import
+          servicePort: 5001

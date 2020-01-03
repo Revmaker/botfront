@@ -1,0 +1,54 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: botfront-import
+  labels:
+    app: botfront
+    component: botfront-import
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: botfront
+        component: botfront-import
+    spec:
+      containers:
+      - name: botfront-import
+       image: 261695625069.dkr.ecr.us-east-1.amazonaws.com/botfront-import:0.2.0
+        imagePullPolicy: IfNotPresent
+        envFrom:
+        - configMapRef:
+            name: botfront-common
+        - configMapRef:
+            name: botfront-import
+        - configMapRef:
+            name: botfront-env
+        - secretRef:
+            name: botfront
+        env:
+        - name: PORT
+          value: "5001"
+        ports:
+        - containerPort: 5001
+          name: botfront-import
+        resources:
+          requests:
+            cpu: "20m"
+            memory: "55M"
+        # livenessProbe:
+        #   tcpSocket:
+        #     port: 5001
+        #   initialDelaySeconds: 90
+        #   timeoutSeconds: 10
+        # readinessProbe:
+        #   tcpSocket:
+        #     port: 5001
+        #   initialDelaySeconds: 30
+        #   timeoutSeconds: 10
+      restartPolicy: Always

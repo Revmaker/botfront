@@ -15,3 +15,6 @@ resources:
 - actions/configmaps.yaml
 - actions/stateful-set.yaml
 - actions/service.yaml
+- botfront-import/configmaps.yaml
+- botfront-import/deployment.yaml
+- botfront-import/service.yaml

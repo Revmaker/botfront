@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: botfront-import
+  labels:
+    app: botfront
+    component: botfront-import
+data: {}

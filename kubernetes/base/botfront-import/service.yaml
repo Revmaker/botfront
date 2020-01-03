@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: botfront-import
+spec:
+  selector:
+    app: botfront
+    component: botfront-import
+  ports:
+  - name: botfront-import
+    port: 5001
+    targetPort: botfront-import
