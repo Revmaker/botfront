@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: botfront-import
-       image: 261695625069.dkr.ecr.us-east-1.amazonaws.com/botfront-import:0.2.0
+       image: 261695625069.dkr.ecr.us-east-1.amazonaws.com/botfront-import:0.3.0
         imagePullPolicy: IfNotPresent
         envFrom:
         - configMapRef:
