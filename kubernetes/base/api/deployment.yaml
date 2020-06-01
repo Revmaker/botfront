@@ -1,5 +1,5 @@
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api
@@ -39,8 +39,11 @@ spec:
           name: api
         resources:
           requests:
-            cpu: "20m"
-            memory: "55M"
+            cpu: "0.25"
+            memory: "128Mi"
+          limits:
+            cpu: "1.0"
+            memory: "512Mi"
         # livenessProbe:
         #   tcpSocket:
         #     port: 8080

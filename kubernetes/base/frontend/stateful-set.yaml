@@ -39,8 +39,11 @@ spec:
           name: web
         resources:
           requests:
-            cpu: "20m"
-            memory: "55M"
+            cpu: "0.25"
+            memory: "1Gi"
+          limits:
+            cpu: "1"
+            memory: "2Gi"
         # livenessProbe:
         #   httpGet:
         #     path: /
@@ -76,8 +79,11 @@ spec:
           name: rasa
         resources:
           requests:
-            cpu: "20m"
-            memory: "55M"
+            cpu: "0.25"
+            memory: "1Gi"
+          limits:
+            cpu: "1.5"
+            memory: "2Gi"
         # livenessProbe:
         #   httpGet:
         #     path: /

@@ -6,6 +6,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.ingress.kubernetes.io/preserve-host: "true"
+    ingress.kubernetes.io/custom-response-headers: "Access-Control-Allow-Origin:*.carlabs.com||Access-Control-Allow-Methods:GET,HEAD,OPTIONS"
 spec:
   rules:
   - host: botfront.carlabs.com
